@@ -29,7 +29,7 @@ for i in $(seq -f "%02g" 1 12); do
   temp_file=$(mktemp)
   output_files+=($temp_file)
 
-  (echo "=== $node ===" > $temp_file; ssh $node /data1/xhuan192/misc/miniconda3/bin/gpustat >> $temp_file) &
+  (echo "=== $node ===" > $temp_file; ssh -o "StrictHostKeyChecking no" $node /data1/xhuan192/misc/miniconda3/bin/gpustat >> $temp_file) &
   sleep 0.5
 done
 wait
