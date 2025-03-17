@@ -35,6 +35,19 @@ done
 wait
 cat "${output_files[@]}"
 rm "${output_files[@]}"
+
+output_files=()
+for i in $(seq 0 1 3); do 
+  node="aws-64-l40s-$i"
+  temp_file=$(mktemp)
+  output_files+=($temp_file)
+
+  (echo "=== $node ===" > $temp_file; ssh -o "StrictHostKeyChecking no" $node /opt/conda/bin/gpustat >> $temp_file) &
+  sleep 0.5
+done
+wait
+cat "${output_files[@]}"
+rm "${output_files[@]}"
 """
             )
 
