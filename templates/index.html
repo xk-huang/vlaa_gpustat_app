@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU Status</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #output {
+            background-color: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            margin-top: 20px;
+            min-height: 200px;
+            overflow-y: auto;
+        }
+        .loading {
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic;
+            color: #666;
+        }
+        .error {
+            color: #ff0000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>GPU Status Monitor</h1>
+    <button id="runBtn">Run GPU Status Check</button>
+    <div id="loadingMsg" class="loading" style="display: none;">Running command, please wait...</div>
+    <pre id="output">Click "Run GPU Status Check" to see the status of all nodes.</pre>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const runBtn = document.getElementById('runBtn');
+            const output = document.getElementById('output');
+            const loadingMsg = document.getElementById('loadingMsg');
+
+            runBtn.addEventListener('click', async () => {
+                // Disable button and show loading message
+                runBtn.disabled = true;
+                loadingMsg.style.display = 'block';
+                output.textContent = 'Executing command...';
+
+                try {
+                    const response = await fetch('/run_command', {
+                        method: 'POST',
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Display command output
+                        output.textContent = data.output;
+                        
+                        // If there was an error, append it
+                        if (data.error) {
+                            output.textContent += '\n\nErrors:\n' + data.error;
+                        }
+                    } else {
+                        output.innerHTML = `<span class="error">Error: ${data.error}</span>`;
+                    }
+                } catch (error) {
+                    output.innerHTML = `<span class="error">Error: ${error.message}</span>`;
+                } finally {
+                    // Re-enable button and hide loading message
+                    runBtn.disabled = false;
+                    loadingMsg.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
