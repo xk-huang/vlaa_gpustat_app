@@ -6,6 +6,11 @@ make sure you can ssh each node. Edit `custom_ssh_config` accordingly, including
 ```
 ssh -F ./custom_ssh_config vlaa-01.be.ucsc.edu
 ```
+Copy your public key to those remote machines.
+```
+# get the public key
+ssh-keygen -y -f ~/.ssh/id_ed25519
+```
 
 Install `gpustat` on each node.
 

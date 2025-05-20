@@ -31,25 +31,20 @@ Host ucsc-vlaa-01 ucsc-vlaa-02 ucsc-vlaa-03 ucsc-vlaa-04 ucsc-vlaa-05 ucsc-vlaa-
     # ControlMaster auto
     # ControlPersist 8h
     ForwardAgent yes
-Host aws-64-l40s*
-    IdentityFile ~/.ssh/250205-aws-l40s.pem
-    User ubuntu
 
-Host aws-64-l40s-0
-    HostName ec2-3-91-249-76.compute-1.amazonaws.com
-Host aws-64-l40s-1
-    HostName ec2-54-89-68-195.compute-1.amazonaws.com
-Host aws-64-l40s-2
-    HostName ec2-54-164-111-205.compute-1.amazonaws.com
-Host aws-64-l40s-3
-    HostName ec2-54-221-155-78.compute-1.amazonaws.com
-Host aws-64-l40s-4
-    HostName ec2-54-90-220-138.compute-1.amazonaws.com
-Host aws-64-l40s-5
-    HostName ec2-34-235-151-232.compute-1.amazonaws.com
-Host aws-64-l40s-6
-    HostName ec2-3-84-240-62.compute-1.amazonaws.com
-Host aws-64-l40s-7
-    HostName ec2-54-164-104-223.compute-1.amazonaws.com
-
+Host aws-a100*
+    User xhuan192
+    ForwardAgent yes
+Host aws-a100-0
+    HostName 35.95.143.135
+Host aws-a100-1
+    HostName 34.211.18.190
+Host aws-a100-2
+    HostName 35.89.98.67
+Host aws-a100-3
+    HostName 34.220.25.225
+Host aws-a100-4
+    HostName 54.188.173.115
+Host aws-a100-5
+    HostName 54.185.140.126
 
