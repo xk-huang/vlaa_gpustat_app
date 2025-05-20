@@ -1,11 +1,24 @@
 # vlaa_gpustat_app
 
-install `gpustat` on each node.
+How to setup locally.
 
-make sure you can ssh each node.
+make sure you can ssh each node. Edit `custom_ssh_config` accordingly, including `Hostname`, `User`, etc. And then try:
+```
+ssh -F ./custom_ssh_config vlaa-01.be.ucsc.edu
+```
 
-Edit `  node="ucsc-vlaa-$i"` and `  (echo "=== $node ===" > $temp_file; ssh $node /data1/xhuan192/misc/miniconda3/bin/gpustat >> $temp_file) &` in `app.py` according to the gpustat path and node ssh hostname.
+Install `gpustat` on each node.
 
-install `flask`
+Search all the `gpustat_path=` in `gpuview_script.sh`, change it to your own path.
+
+
+Install `flask`
 
 run the app `python app.py`
+
+Then forward the port
+```bash
+ssh -L 5000:localhost:5000 $ssh_alias
+```
+
+Visit `localhost:5000` in your browser.

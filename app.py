@@ -17,48 +17,12 @@ def index():
 def run_command():
     try:
         # Create a shell script with the provided commands
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".sh", delete=False
-        ) as script_file:
-            script_path = script_file.name
-            script_file.write(
-                """#!/bin/bash
-output_files=()
-for i in $(seq -f "%02g" 1 12); do 
-  node="ucsc-vlaa-$i"
-  temp_file=$(mktemp)
-  output_files+=($temp_file)
-
-  (echo "=== $node ===" > $temp_file; ssh -o "StrictHostKeyChecking no" $node /data1/xhuan192/misc/miniconda3/bin/gpustat >> $temp_file) &
-  sleep 0.5
-done
-wait
-cat "${output_files[@]}"
-rm "${output_files[@]}"
-
-output_files=()
-for i in $(seq 0 1 3); do 
-  node="aws-64-l40s-$i"
-  temp_file=$(mktemp)
-  output_files+=($temp_file)
-
-  (echo "=== $node ===" > $temp_file; ssh -o "StrictHostKeyChecking no" $node /opt/conda/bin/gpustat >> $temp_file) &
-  sleep 0.5
-done
-wait
-cat "${output_files[@]}"
-rm "${output_files[@]}"
-"""
-            )
-
         # Make the script executable
+        script_path = "./gpuview_script.sh"
         os.chmod(script_path, 0o755)
 
         # Run the shell script and capture output
         result = subprocess.run([script_path], capture_output=True, text=True)
-
-        # Clean up the temporary script file
-        os.unlink(script_path)
 
         # Return the output
         return jsonify(
