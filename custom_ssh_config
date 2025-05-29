@@ -47,4 +47,6 @@ Host aws-a100-4
     HostName 54.188.173.115
 Host aws-a100-5
     HostName 54.185.140.126
+Host aws-a100-6
+    HostName 54.185.153.197
 

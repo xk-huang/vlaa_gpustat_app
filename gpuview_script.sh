@@ -24,7 +24,7 @@ rm "${output_files[@]}"
 # AWS
 gpustat_path="gpustat"
 output_files=()
-for i in $(seq 0 1 5); do 
+for i in $(seq 0 1 6); do 
   node="aws-a100-$i"
   temp_file=$(mktemp)
   output_files+=($temp_file)
