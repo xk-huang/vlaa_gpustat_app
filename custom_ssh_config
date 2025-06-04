@@ -35,6 +35,7 @@ Host ucsc-vlaa-01 ucsc-vlaa-02 ucsc-vlaa-03 ucsc-vlaa-04 ucsc-vlaa-05 ucsc-vlaa-
 Host aws-a100*
     User xhuan192
     ForwardAgent yes
+
 Host aws-a100-0
     HostName 35.95.143.135
 Host aws-a100-1
@@ -49,4 +50,11 @@ Host aws-a100-5
     HostName 54.185.140.126
 Host aws-a100-6
     HostName 54.185.153.197
-
+Host aws-a100-7
+	HostName 18.236.231.79
+Host aws-a100-8
+	HostName 18.237.131.85
+Host aws-a100-9
+	HostName 52.12.153.226
+Host aws-a100-10
+	HostName 54.200.36.103
